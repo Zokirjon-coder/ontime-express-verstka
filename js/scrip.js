@@ -17,17 +17,8 @@ navbtns.forEach((btn) => {
 const wrapper = document.querySelector(".wrapper");
 const sections = document.querySelectorAll(".wrapper section");
 
-wrapper.addEventListener("scroll", (e) => {
-  abouts.forEach((about) => about.classList.remove("active"));
-  menus.forEach((menu) => menu.classList.remove("active"));
-  footers.forEach((footer) => footer.classList.remove("disabled"));
-  sectionBodies.forEach((sectionBody) =>
-    sectionBody.classList.remove("disabled")
-  );
-  sections.forEach((section) => section.classList.remove("darker"));
-  navigation.classList.remove("disabled");
-
-  const scrollY = e.srcElement.scrollTop;
+document.addEventListener("scroll", (e) => {
+  const scrollY = e.srcElement.scrollingElement.scrollTop;
   sections.forEach((section) => {
     const sectionHeight = section.offsetHeight;
     const sectionTop = section.offsetTop - 200;
@@ -35,6 +26,20 @@ wrapper.addEventListener("scroll", (e) => {
     if (scrollY > sectionTop && scrollY < sectionTop + sectionHeight) {
       const sectionId = section.getAttribute("id");
       const activeSection = document.querySelector(`#${sectionId}`);
+
+      setTimeout(() => {
+        if (!activeSection.classList.contains("active")) {
+          abouts.forEach((about) => about.classList.remove("active"));
+          menus.forEach((menu) => menu.classList.remove("active"));
+          footers.forEach((footer) => footer.classList.remove("disabled"));
+          sectionBodies.forEach((sectionBody) =>
+            sectionBody.classList.remove("disabled")
+          );
+          sections.forEach((section) => section.classList.remove("darker"));
+          navigation.classList.remove("disabled");
+        }
+      }, 100);
+
       activeSection.classList.add("active");
       navbtns.forEach((btn) => {
         if (btn.getAttribute("title") === sectionId) {
@@ -57,39 +62,11 @@ wrapper.addEventListener("scroll", (e) => {
 sections.forEach((sec) => {
   const watermark = document.createElement("div");
   watermark.innerHTML = `
-          <h1>ontime</h1>
-          <h1>express</h1>
+          <h1>Hazel</h1>
+          <h1>Eyes Inc.</h1>
           `;
   watermark.className = "watermark";
   sec.appendChild(watermark);
-});
-
-// set logo & link icons
-const logos = document.querySelectorAll(".header .logo img");
-sections.forEach((sec) => {
-  if (sec.classList.contains("dark")) {
-    sec
-      .querySelector(".header .logo img")
-      .setAttribute("src", "./assets/icons/logo.svg");
-    sec.querySelectorAll(".header .link").forEach((link) => {
-      let src = link
-        .querySelector("img")
-        .getAttribute("src")
-        .replace("dark", "light");
-      link.querySelector("img").setAttribute("src", src);
-    });
-  } else {
-    sec
-      .querySelector(".header .logo img")
-      .setAttribute("src", "./assets/icons/darkLogo.svg");
-    sec.querySelectorAll(".header .link").forEach((link) => {
-      let src = link
-        .querySelector("img")
-        .getAttribute("src")
-        .replace("light", "dark");
-      link.querySelector("img").setAttribute("src", src);
-    });
-  }
 });
 
 // about settings
@@ -109,7 +86,20 @@ aboutBtns.forEach((aboutBtn) => {
     abouts.forEach((about) => {
       if (!about.classList.contains("active")) {
         about.classList.add("active");
-        console.log('active');
+        toActiveSection();
+        disableScroll();
+      } else {
+        enableScroll();
+        about.classList.remove("active");
+        menus.forEach((menu) => menu.classList.remove("active"));
+        sections.forEach((sec) => {
+          if (sec.classList.contains("darker")) sec.classList.remove("darker");
+          navigation.classList.remove("disabled");
+        });
+        footers.forEach((footer) => footer.classList.remove("disabled"));
+        sectionBodies.forEach((sectionBody) =>
+          sectionBody.classList.remove("disabled")
+        );
       }
     });
   });
@@ -118,6 +108,7 @@ aboutBtns.forEach((aboutBtn) => {
 const closeBtns = document.querySelectorAll(".closeBtn");
 closeBtns.forEach((closeBtn) => {
   closeBtn.addEventListener("click", () => {
+    enableScroll();
     footers.forEach((footer) => footer.classList.remove("disabled"));
     abouts.forEach((about) => about.classList.remove("active"));
     sectionBodies.forEach((sectionBody) =>
@@ -148,6 +139,20 @@ menuBtns.forEach((menuBtn) => {
     menus.forEach((menu) => {
       if (!menu.classList.contains("active")) {
         menu.classList.add("active");
+        toActiveSection();
+        disableScroll();
+      } else {
+        enableScroll();
+        menu.classList.remove("active");
+        abouts.forEach((about) => about.classList.remove("active"));
+        sections.forEach((sec) => {
+          if (sec.classList.contains("darker")) sec.classList.remove("darker");
+        });
+        navigation.classList.remove("disabled");
+        footers.forEach((footer) => footer.classList.remove("disabled"));
+        sectionBodies.forEach((sectionBody) =>
+          sectionBody.classList.remove("disabled")
+        );
       }
     });
   });
@@ -156,6 +161,7 @@ menuBtns.forEach((menuBtn) => {
 const menuCloseBtns = document.querySelectorAll(".menuCloseBtn");
 menuCloseBtns.forEach((closeBtn) => {
   closeBtn.addEventListener("click", () => {
+    enableScroll();
     footers.forEach((footer) => footer.classList.remove("disabled"));
     sectionBodies.forEach((sectionBody) =>
       sectionBody.classList.remove("disabled")
@@ -168,45 +174,87 @@ menuCloseBtns.forEach((closeBtn) => {
   });
 });
 
-// Collapse
-const text = `
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur quam, magnam, amet numquam sapiente porro perferendis autem illum veritatis voluptas repellat odit facilis repudiandae laborum, nam vel aliquid maxime? Quas?
-`;
+function toActiveSection() {
+  // const activeSection = null;
+  sections.forEach((sec) => {
+    if (sec.classList.contains("active")) sec.scrollIntoView();
+  });
+  // activeSection.scrollIntoView();
+}
 
-const dataOffer = [
-  { id: 1, title: "REGIONAL DRY VAN SOLO", text: text },
-  { id: 2, title: "OTR DRY VAN SOLO", text: text },
-  { id: 3, title: "OTR DRY VAN TEAMS", text: text },
-  { id: 4, title: "DRY VAN LEASE PURCHASE", text: text },
-];
+function disableScroll() {
+  window.addEventListener("DOMMouseScroll", preventDefault, false); // older FF
+  window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
+  window.addEventListener("touchmove", preventDefault, wheelOpt); // mobile
+  window.addEventListener("keydown", preventDefaultForScrollKeys, false);
+}
+
+function enableScroll() {
+  window.removeEventListener("DOMMouseScroll", preventDefault, false);
+  window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
+  window.removeEventListener("touchmove", preventDefault, wheelOpt);
+  window.removeEventListener("keydown", preventDefaultForScrollKeys, false);
+}
+
+let keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
+
+function preventDefault(e) {
+  e.preventDefault();
+}
+
+function preventDefaultForScrollKeys(e) {
+  if (keys[e.keyCode]) {
+    preventDefault(e);
+    return false;
+  }
+}
+
+// modern Chrome requires { passive: false } when adding event
+let supportsPassive = false;
+try {
+  window.addEventListener(
+    "test",
+    null,
+    Object.defineProperty({}, "passive", {
+      get: function () {
+        supportsPassive = true;
+      },
+    })
+  );
+} catch (e) {}
+
+let wheelOpt = supportsPassive ? { passive: false } : false;
+let wheelEvent =
+  "onwheel" in document.createElement("div") ? "wheel" : "mousewheel";
+
+// call this to Disable
+
+// collapse
 
 const collapse = document.querySelector(".collapse");
-
-dataOffer.forEach((offer) => {
-  const collap = document.createElement("div");
-  collap.className = "collap";
-  collap.innerHTML = `
-  <div class="collap_header">
-            <div class="title">
-              <div class="arrow">
-                <img src='./assets/icons/arrow.svg' alt="arrow" />
-              </div>
-              ${offer.title}
-            </div>
-            <div class="btn">
-            </div>
-          </div>
-          <div 
-          class="body">${offer.text}</div>
-  `;
-  collapse.appendChild(collap);
-});
 
 const collap = collapse.querySelectorAll(".collap");
 collap.forEach((col) => {
   col.addEventListener("click", () => {
-    collap.forEach((col) => col.classList.remove("active"));
-    col.classList.toggle("active");
+    
+      const contentHieght = col.querySelector(".body div").scrollHeight;
+    col
+      .querySelector(".body")
+      .addEventListener("click", (e) => e.stopPropagation());
+    if (col.classList.contains("active")) {
+      col.classList.remove("active");
+      col.querySelector(".btn").classList.remove("active");
+      col.querySelector(".body").style.height = 0 + "px";
+    } else {
+      collap.forEach((col) => {
+        col.classList.remove("active");
+        col.querySelector(".btn").classList.remove("active");
+        col.querySelector(".body").style.height = 0 + "px";
+      });
+      col.classList.add("active");
+      col.querySelector(".body").style.height = contentHieght + "px";
+      col.querySelector(".btn").classList.add("active");
+    }
   });
 });
 
@@ -214,11 +262,12 @@ collap.forEach((col) => {
 const prevBtn = document.querySelector(".prevBtn");
 const nextBtn = document.querySelector(".nextBtn");
 const slide = document.querySelector(".slider_truck .slide");
-const params1 = document.querySelector(".slider_truck .params1")
-const params2 = document.querySelector(".slider_truck .params2")
+const params1 = document.querySelector(".slider_truck .params1");
+const params2 = document.querySelector(".slider_truck .params2");
 // images
 const img1 = "./assets/images/img1.png";
 const img2 = "./assets/images/img2.png";
+const img3 = "./assets/images/img3.png";
 
 const dataSlider = [
   {
@@ -253,18 +302,94 @@ const dataSlider = [
       { id: 4, param: "Removable rider seat" },
     ],
   },
+  {
+    id: 3,
+    image: img3,
+    param1: [
+      { id: 1, param: "Governed at 70 mph" },
+      { id: 2, param: "Inverter" },
+      { id: 3, param: "Automatic" },
+      { id: 4, param: "Combo sleeper" },
+    ],
+    param2: [
+      { id: 1, param: "High roof" },
+      { id: 2, param: "Diesel APU" },
+      { id: 3, param: "Minifridge" },
+      { id: 4, param: "Removable rider seat" },
+    ],
+  },
 ];
 
 function setImageSlide(data) {
+  const img = slide.querySelector("img");
   const { image, param1, param2 } = data;
-  const img = document.createElement("img");
-  params1.innerHTML="";
-  params2.innerHTML="";
-  slide.innerHTML = "";
-  param1.forEach(({ param }) => (params1.innerHTML += `<div>${param}</div>`));
-  param2.forEach(({ param }) => (params2.innerHTML += `<div>${param}</div>`));
-  img.setAttribute("src", image);
-  slide.appendChild(img);
+  gsap.fromTo(img,{
+    x: 0,
+    opacity: 1,
+  }, {
+    opacity: 0,
+    x: -100,
+    duration: 0.5
+  })
+  gsap.fromTo(params2,{
+    x: 0,
+    opacity: 1,
+  }, {
+    opacity: 0,
+    x: -100,
+    duration: 0.5
+  })
+  gsap.fromTo(params1,{
+    x: 0,
+    opacity: 1,
+  }, {
+    opacity: 0,
+    x: 100,
+    duration: 0.5
+  })
+  setTimeout(() => {
+    params1.innerHTML = "";
+    params2.innerHTML = "";
+    param1.forEach(({ param }) => (params1.innerHTML += `<div>${param}</div>`));
+    param2.forEach(({ param }) => (params2.innerHTML += `<div>${param}</div>`));
+    img.setAttribute("src", image);
+    gsap.fromTo(
+      img,
+      {
+        x: 100,
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+      }
+    );
+    gsap.fromTo(
+      params1,
+      {
+        x: -50,
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+      }
+    );
+    gsap.fromTo(
+      params2,
+      {
+        x: 50,
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+      }
+    );
+  }, 500);
 }
 
 const slideCheck = (index) => {
@@ -285,7 +410,7 @@ setImageSlide(dataSlider[n]);
 setInterval(() => {
   n = slideCheck(++n);
   setImageSlide(dataSlider[n]);
-}, 5000);
+}, 10000);
 
 const onChangeSlide = (change) => {
   if (change === "next") {
@@ -303,7 +428,6 @@ prevBtn.addEventListener("click", () => {
 nextBtn.addEventListener("click", () => {
   onChangeSlide("next");
 });
-
 
 // ontime page
 
@@ -372,15 +496,137 @@ const dataOntimePage = [
   },
 ];
 
-
-dataOntimePage.forEach(data=>{
+dataOntimePage.forEach((data) => {
   ontimeContents.innerHTML += `
   <div class="content">
-                  <div class="number">
+                  <div class="number gs_reveal gs_reveal_fromLeft">
                     ${data.number}</div>
-                  <div class="text">
+                  <div class="text gs_reveal gs_reveal_fromRight">
                     ${data.text}
                   </div>
                 </div>
   `;
-})
+});
+
+// join page
+
+const selections = document.querySelectorAll(".input.select");
+
+selections.forEach((selection) => {
+  selection.addEventListener("click", () => {
+    selection.classList.toggle("selected");
+  });
+});
+
+// quote page
+let checkEmail = "";
+let letter = 0;
+const letterCount = document.querySelector("#quote .letterCount");
+const textArea = document.querySelector("#quote .text_area");
+const email = document.querySelector("#quote #e-mail");
+const submit = document.querySelector("#quote #submit");
+const validation = document.querySelector("#quote .validation");
+
+const countLetters = (e) => {
+  const text = e.target.value;
+  const length = text.length;
+  letterCount.innerHTML = length;
+};
+
+textArea.addEventListener("input", (e) => {
+  countLetters(e);
+});
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
+const checkEmailAddress = (email) => {
+  const result = validateEmail(email);
+  validation.innerHTML = result ? "It`s ok" : "Valide email address required";
+  validation.style.color = result ? "green" : "red";
+};
+
+submit.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  checkEmailAddress(email.value);
+});
+
+// testimonials slider
+const sliderTest = document.querySelector(".slider_test");
+const leftArrowBtn = document.querySelector(
+  ".slider_container .prev .btn_slider"
+);
+const rightArrowBtn = document.querySelector(
+  ".slider_container .next .btn_slider"
+);
+
+const img = "./assets/images/user.jpg";
+
+const dataTestimonials = [
+  {
+    id: 1,
+    name: "Brian Vega",
+    image: img,
+    position: "Company Driver",
+    testimonial: `“Awsome Company. They are professional and caring. They go way out of their way to meet your needs. They put the needs of you and community ahead of anything else.`,
+  },
+  {
+    id: 2,
+    name: "Mohammad lidle",
+    image: img,
+    position: "Lease Driver",
+    testimonial: `Very good company. They pay well, offer good home time and treat employees well.`,
+  },
+  {
+    id: 3,
+    name: "Hasan Ali",
+    image: img,
+    position: "Company Driver",
+    testimonial: `Very good company. They pay well, offer good home time and treat employees well.`,
+  },
+  {
+    id: 4,
+    name: "Ahmad Tarek",
+    image: img,
+    position: "Company Driver",
+    testimonial: `Very good company. They pay well, offer good home time and treat employees well.`,
+  },
+  {
+    id: 5,
+    name: "Aziz Salim",
+    image: img,
+    position: "Company Driver",
+    testimonial: `Very good company. They pay well, offer good home time and treat employees well.`,
+  },
+];
+
+dataTestimonials.forEach((data) => {
+  const slide = document.createElement("div");
+  slide.className = "slide_test";
+  slide.innerHTML = `
+  <div class="header_slider">
+      <div class="avatar">
+        <img src=${data.image} alt="avatar" />
+      </div>
+      <div class="user_info">
+        <div class="name">${data.name}</div>
+        <div class="position">${data.position}</div>
+      </div>
+    </div>
+    <div class="text">${data.testimonial}</div>
+  `;
+  sliderTest.appendChild(slide);
+});
+
+rightArrowBtn.addEventListener("click", () => {
+  sliderTest.scrollLeft += 300;
+});
+leftArrowBtn.addEventListener("click", () => {
+  sliderTest.scrollLeft -= 300;
+});
