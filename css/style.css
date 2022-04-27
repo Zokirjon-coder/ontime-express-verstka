@@ -7,7 +7,7 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   scroll-behavior: smooth;
   text-decoration: none;
   scroll-behavior: smooth;
@@ -67,7 +67,7 @@ body::-webkit-scrollbar-thumb {
       -ms-flex-pack: center;
           justify-content: center;
   color: white;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 5vw;
 }
 
@@ -77,7 +77,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .loader h1 {
-  font-family: "Open Sans", -apple-system, "Segoe UI", sans-serif;
+  font-family: 'Open Sans', -apple-system, 'Segoe UI', sans-serif;
   font-size: 5vw;
   font-weight: bold;
   color: #666666;
@@ -281,10 +281,10 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   border: 2px solid black;
   background: var(--bg-light);
-  -webkit-transition: opacity 0.5s, -webkit-transform .3s;
-  transition: opacity 0.5s, -webkit-transform .3s;
-  transition: opacity 0.5s, transform .3s;
-  transition: opacity 0.5s, transform .3s, -webkit-transform .3s;
+  -webkit-transition: opacity 0.5s, -webkit-transform 0.3s;
+  transition: opacity 0.5s, -webkit-transform 0.3s;
+  transition: opacity 0.5s, transform 0.3s;
+  transition: opacity 0.5s, transform 0.3s, -webkit-transform 0.3s;
 }
 
 .navigation > .buttons span.active {
@@ -518,7 +518,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .container .header .menu .item::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   height: 2px;
@@ -838,11 +838,13 @@ body::-webkit-scrollbar-thumb {
   place-items: center;
 }
 
-.container .header .drop_menu .menu_item, .container .header .drop_menu a {
+.container .header .drop_menu .menu_item,
+.container .header .drop_menu a {
   all: unset;
 }
 
-.container .header .drop_menu .menu_item:hover, .container .header .drop_menu a:hover {
+.container .header .drop_menu .menu_item:hover,
+.container .header .drop_menu a:hover {
   color: var(--main-color);
 }
 
@@ -1258,8 +1260,20 @@ body::-webkit-scrollbar-thumb {
   overflow: hidden;
 }
 
+#home .section_body .banner .banner_img {
+  position: relative;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
 #home .section_body .banner .banner_img img {
-  width: 100%;
+  right: -10%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  position: absolute;
+  width: 190%;
 }
 
 #home .section_body .banner .content {
@@ -1283,6 +1297,10 @@ body::-webkit-scrollbar-thumb {
     height: 200px;
   }
   #home .section_body .banner .banner_img img {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    position: static;
+    width: auto;
     height: 100%;
   }
   #home .section_body .banner .content {
@@ -1298,12 +1316,6 @@ body::-webkit-scrollbar-thumb {
 @media screen and (max-width: 650px) {
   #home .section_body .banner {
     padding-left: 0px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  #home .section_body .banner .banner_img {
-    height: unset;
   }
 }
 
@@ -1477,7 +1489,7 @@ body::-webkit-scrollbar-thumb {
 
 #offer .section_body .banner .content .collapse .collap .collap_header .btn::before, #offer .section_body .banner .content .collapse .collap .collap_header .btn::after {
   position: absolute;
-  content: "";
+  content: '';
   background-color: var(--main-color);
   top: 50%;
   left: 50%;
@@ -1512,8 +1524,8 @@ body::-webkit-scrollbar-thumb {
   height: 0;
   padding: 0 15px;
   opacity: 0;
-  -webkit-transition: opacity .7s, height .5s, margin-top .5s;
-  transition: opacity .7s, height .5s, margin-top .5s;
+  -webkit-transition: opacity 0.7s, height 0.5s, margin-top 0.5s;
+  transition: opacity 0.7s, height 0.5s, margin-top 0.5s;
   cursor: text;
 }
 
@@ -1603,7 +1615,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 #offer .section_body .banner .content .collapse .collap .body .lists .ul .li::before {
-  content: "";
+  content: '';
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -2532,7 +2544,7 @@ body::-webkit-scrollbar-thumb {
   padding: 56px 38px 56px 49px;
   background: rgba(29, 27, 27, 0.5);
   border-radius: 30px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #f2f2f2;
 }
 
@@ -2650,7 +2662,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 #join .section_body .form .checkbox input::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2916,7 +2928,7 @@ body::-webkit-scrollbar-thumb {
   padding: 28px 76px 70px 83px;
   background: rgba(29, 27, 27, 0.5);
   border-radius: 30px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #f2f2f2;
 }
 
