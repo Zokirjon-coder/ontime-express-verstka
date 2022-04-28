@@ -345,6 +345,7 @@ body {
       cursor: pointer;
       svg {
         height: 45.55px;
+        width: auto;
       }
     }
     .menu {
@@ -1045,6 +1046,7 @@ body {
         line-height: 1;
         text-transform: uppercase;
       }
+
       .btns {
         display: flex;
         align-items: center;
@@ -1064,6 +1066,14 @@ body {
           &.transparent {
             background: transparent;
           }
+        }
+      }
+      @media screen and (max-width: 500px) {
+        h1 {
+          font-size: 45px;
+        }
+        .btns button {
+          font-size: 15px;
         }
       }
     }

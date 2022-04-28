@@ -470,6 +470,7 @@ body::-webkit-scrollbar-thumb {
 
 .container .header .logo svg {
   height: 45.55px;
+  width: auto;
 }
 
 .container .header .menu {
@@ -1361,6 +1362,15 @@ body::-webkit-scrollbar-thumb {
 
 #home .section_body .banner .btns button.transparent {
   background: transparent;
+}
+
+@media screen and (max-width: 500px) {
+  #home .section_body .banner h1 {
+    font-size: 45px;
+  }
+  #home .section_body .banner .btns button {
+    font-size: 15px;
+  }
 }
 
 #offer .section_body .banner h2 {
