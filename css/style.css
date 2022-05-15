@@ -1598,6 +1598,11 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+#offer .section_body .banner .content .collapse .collap .body .lists .reqruiment {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
 #offer .section_body .banner .content .collapse .collap .body .lists .ul {
   display: -ms-grid;
   display: grid;
@@ -1626,8 +1631,8 @@ body::-webkit-scrollbar-thumb {
 
 #offer .section_body .banner .content .collapse .collap .body .lists .ul .li::before {
   content: '';
-  width: 30px;
-  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
   border-radius: 50%;
   background: radial-gradient(#26191c 3.5px, #d1d0d0 4.5px);
 }
@@ -1637,6 +1642,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media screen and (max-width: 2000px) {
+  #offer .section_body .banner .content .collapse .collap .body .lists .reqruiment {
+    font-size: 17px;
+  }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul {
     margin-bottom: 15px;
     -ms-grid-columns: (1fr)[5];
@@ -1648,12 +1656,15 @@ body::-webkit-scrollbar-thumb {
     gap: 15px;
   }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul .li::before {
-    width: 26px;
-    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
   }
 }
 
 @media screen and (max-width: 1700px) {
+  #offer .section_body .banner .content .collapse .collap .body .lists .reqruiment {
+    font-size: 15px;
+  }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul {
     gap: 3px;
     -ms-grid-columns: (1fr)[4];
@@ -1666,13 +1677,16 @@ body::-webkit-scrollbar-thumb {
     gap: 13px;
   }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul .li::before {
-    width: 22px;
-    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
     background: radial-gradient(#26191c 2.5px, #d1d0d0 3.5px);
   }
 }
 
 @media screen and (max-width: 1500px) {
+  #offer .section_body .banner .content .collapse .collap .body .lists .reqruiment {
+    font-size: 13px;
+  }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul {
     margin-bottom: 8px;
     font-weight: 500;
@@ -1682,13 +1696,16 @@ body::-webkit-scrollbar-thumb {
     gap: 10px;
   }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul .li::before {
-    width: 18px;
-    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
     background: radial-gradient(#26191c 2.5px, #d1d0d0 3.5px);
   }
 }
 
 @media screen and (max-width: 1024px) {
+  #offer .section_body .banner .content .collapse .collap .body .lists .reqruiment {
+    font-size: 11px;
+  }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul {
     margin-bottom: 5px;
     -ms-grid-columns: (1fr)[3];
@@ -1700,13 +1717,16 @@ body::-webkit-scrollbar-thumb {
     gap: 8px;
   }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul .li::before {
-    width: 13px;
-    height: 13px;
+    min-width: 13px;
+    min-height: 13px;
     background: radial-gradient(#26191c 1.5px, #d1d0d0 2.5px);
   }
 }
 
 @media screen and (max-width: 654px) {
+  #offer .section_body .banner .content .collapse .collap .body .lists .reqruiment {
+    font-size: 11px;
+  }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul {
     margin-bottom: 5px;
     -ms-grid-columns: (1fr)[2];
@@ -1718,8 +1738,8 @@ body::-webkit-scrollbar-thumb {
     gap: 5px;
   }
   #offer .section_body .banner .content .collapse .collap .body .lists .ul .li::before {
-    width: 13px;
-    height: 13px;
+    min-width: 13px;
+    min-height: 13px;
     background: radial-gradient(#26191c 1.5px, #d1d0d0 2.5px);
   }
 }

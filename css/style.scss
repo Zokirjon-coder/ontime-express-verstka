@@ -1264,6 +1264,10 @@ body {
               }
 
               .lists {
+                .reqruiment {
+                  margin: 10px 0;
+                  font-size: 18px;
+                }
                 .ul {
                   display: grid;
                   grid-template-columns: repeat(5, 1fr);
@@ -1280,8 +1284,8 @@ body {
                     gap: 24px;
                     &::before {
                       content: '';
-                      width: 30px;
-                      height: 30px;
+                      min-width: 30px;
+                      min-height: 30px;
                       border-radius: 50%;
                       background: radial-gradient(#26191c 3.5px, #d1d0d0 4.5px);
                     }
@@ -1291,6 +1295,9 @@ body {
                   }
                 }
                 @media screen and (max-width: 2000px) {
+                  .reqruiment {
+                    font-size: 17px;
+                  }
                   .ul {
                     margin-bottom: 15px;
                     grid-template-columns: repeat(5, 1fr);
@@ -1299,13 +1306,16 @@ body {
                     .li {
                       gap: 15px;
                       &::before {
-                        width: 26px;
-                        height: 26px;
+                        min-width: 26px;
+                        min-height: 26px;
                       }
                     }
                   }
                 }
                 @media screen and (max-width: 1700px) {
+                  .reqruiment {
+                    font-size: 15px;
+                  }
                   .ul {
                     gap: 3px;
 
@@ -1316,8 +1326,8 @@ body {
                     .li {
                       gap: 13px;
                       &::before {
-                        width: 22px;
-                        height: 22px;
+                        min-width: 22px;
+                        min-height: 22px;
                         background: radial-gradient(
                           #26191c 2.5px,
                           #d1d0d0 3.5px
@@ -1327,6 +1337,9 @@ body {
                   }
                 }
                 @media screen and (max-width: 1500px) {
+                  .reqruiment {
+                    font-size: 13px;
+                  }
                   .ul {
                     margin-bottom: 8px;
                     font-weight: 500;
@@ -1334,8 +1347,8 @@ body {
                     .li {
                       gap: 10px;
                       &::before {
-                        width: 18px;
-                        height: 18px;
+                        min-width: 18px;
+                        min-height: 18px;
                         background: radial-gradient(
                           #26191c 2.5px,
                           #d1d0d0 3.5px
@@ -1345,6 +1358,9 @@ body {
                   }
                 }
                 @media screen and (max-width: 1024px) {
+                  .reqruiment {
+                    font-size: 11px;
+                  }
                   .ul {
                     margin-bottom: 5px;
                     grid-template-columns: repeat(3, 1fr);
@@ -1353,8 +1369,8 @@ body {
                     .li {
                       gap: 8px;
                       &::before {
-                        width: 13px;
-                        height: 13px;
+                        min-width: 13px;
+                        min-height: 13px;
                         background: radial-gradient(
                           #26191c 1.5px,
                           #d1d0d0 2.5px
@@ -1364,6 +1380,9 @@ body {
                   }
                 }
                 @media screen and (max-width: 654px) {
+                  .reqruiment {
+                    font-size: 11px;
+                  }
                   .ul {
                     margin-bottom: 5px;
                     grid-template-columns: repeat(2, 1fr);
@@ -1372,8 +1391,8 @@ body {
                     .li {
                       gap: 5px;
                       &::before {
-                        width: 13px;
-                        height: 13px;
+                        min-width: 13px;
+                        min-height: 13px;
                         background: radial-gradient(
                           #26191c 1.5px,
                           #d1d0d0 2.5px
