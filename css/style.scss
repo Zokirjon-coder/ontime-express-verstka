@@ -1595,6 +1595,9 @@ body {
             overflow: hidden;
             img {
               width: 100%;
+              &[disabled='true'] {
+                display: none;
+              }
             }
             @media screen and (max-width: 950px) {
               transform: translateY(-15%);
