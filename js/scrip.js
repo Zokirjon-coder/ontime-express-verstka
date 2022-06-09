@@ -62,8 +62,8 @@ document.addEventListener('scroll', (e) => {
 sections.forEach((sec) => {
   const watermark = document.createElement('div');
   watermark.innerHTML = `
-          <h1>Hazel</h1>
-          <h1>Eyes Inc.</h1>
+          <h1>ontime</h1>
+          <h1>express</h1>
           `;
   watermark.className = 'watermark';
   sec.appendChild(watermark);
@@ -364,7 +364,6 @@ function setImageSlide(data) {
   });
 
   setTimeout(() => {
-    console.log('test');
     images.forEach((image, index) => {
       if (id === index + 1) {
         image.setAttribute('disabled', 'false');
